@@ -1,0 +1,32 @@
+hush''
+
+  -- LAUNCHER
+do
+  let
+    dyn = 0.99
+    h = a0
+    k = A \\\ aeolian
+    d = (*dyn)
+  mapM_ id [hush
+  -- -- SECTIONS
+    ,strings h k $d 0.99
+    ,winds h k $d 0.99
+    ,brass h k $d 0.99
+    ,percussion h k $d 0.99
+  -- -- SOLOISTS
+    -- ,violin' h k $d 0.99
+    -- ,oboe' h k $d 0.99
+    -- ,horn' h k $d 0.99
+    ]
+
+  -- TRANSPORT
+p "transport" $ do
+  let out = 8*9999
+  let
+  seqP [syncStart
+    ,startTransport
+    ,stopTransport out
+    ,bar 0 out metronome
+    ]
+
+hush'

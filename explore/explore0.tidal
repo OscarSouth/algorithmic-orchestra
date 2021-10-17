@@ -1,0 +1,44 @@
+strings  p0 p1 p2 = d1 $ do
+  let (motion, prog) = (fst' p0, inKey p1)
+  id $
+    stack [silence
+      ,arco
+      ,marcato
+      ] |* vel p2 #ch 06
+        -- |- note 12
+        |+| prog 4 (fst motion
+         +| "[0 4 2 4]"
+          ) |+ note (snd motion)
+
+winds  p0 p1 p2 = d1 $ do
+  let (motion, prog) = (fst' p0, inKey p1)
+  id $
+    stack [silence
+      ,oboe "[0]"
+      ] |* vel p2 #ch 06
+        -- |- note 12
+        |+| prog 4 (fst motion
+         +| "[0 4 2 4]"
+          ) |+ note (snd motion)
+
+brass  p0 p1 p2 = d1 $ do
+  let (motion, prog) = (fst' p0, inKey p1)
+  id $
+    stack [silence
+      ,oboe "[0]"
+      ] |* vel p2 #ch 06
+        -- |- note 12
+        |+| prog 4 (fst motion
+         +| "[0 4 2 4]"
+          ) |+ note (snd motion)
+
+percussion  p0 p1 p2 = d1 $ do
+  let (motion, prog) = (fst' p0, inKey p1)
+  id $
+    stack [silence
+      ,oboe "[0]"
+      ] |* vel p2 #ch 06
+        -- |- note 12
+        |+| prog 4 (fst motion
+         +| "[0 4 2 4]"
+          ) |+ note (snd motion)

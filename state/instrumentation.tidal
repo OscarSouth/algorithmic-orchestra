@@ -1,0 +1,130 @@
+-- 2 flutes, doubling piccolo
+-- 2 oboe, doubling cor anglais
+-- 2 clarinets, doubling bass clarinet
+-- 2 bassoons, doubling contrabassoon
+-- 2 horns
+-- 2 trombones, doubling bass trombone
+-- 1 timpanist
+-- 1 percussionist
+-- 1 harp
+-- 8 1st violins
+-- 6 2nd violins
+-- 4 violas
+-- 3 celli
+-- 2 contrabasses
+
+dynamicMarks chan = [
+    ("x", note "0"),
+    ("ffff", note "0" #vel 1 #ch chan),
+    ("fff", note "0" #vel 0.9 #ch chan),
+    ("ff", note "0" #vel 0.75 #ch chan),
+    ("f", note "0" #vel 0.65 #ch chan),
+    ("mf", note "0" #vel 0.55 #ch chan),
+    ("mp", note "0" #vel 0.45 #ch chan),
+    ("p", note "0" #vel 0.40 #ch chan),
+    ("pp", note "0" #vel 0.35 #ch chan),
+    ("ppp", note "0"  #vel 0.30 #ch chan),
+    ("pppp", note "0" #vel 0.25 #ch chan)
+  ]
+
+dynamicMarks' = [
+    ("x", note "0"),
+    ("ffff", note "0" #vel 1),
+    ("fff", note "0" #vel 0.9),
+    ("ff", note "0" #vel 0.75),
+    ("f", note "0" #vel 0.65),
+    ("mf", note "0" #vel 0.55),
+    ("mp", note "0" #vel 0.45),
+    ("p", note "0" #vel 0.40),
+    ("pp", note "0" #vel 0.35),
+    ("ppp", note "0"  #vel 0.30),
+    ("pppp", note "0" #vel 0.25)
+  ]
+
+jvInstrument chan dyn = do
+  let bars = 1
+      fs   = []
+   in ur bars dyn (dynamicMarks chan) fs
+
+jvInstrument' dyn = do
+  let bars = 1
+      fs   = []
+   in ur bars dyn (dynamicMarks') fs
+
+let
+  flute = jvInstrument 1
+  oboe = jvInstrument 2
+  clarinet = jvInstrument 3
+  bassoon = jvInstrument 4
+  horn = jvInstrument 5
+  trombone = jvInstrument 6
+  harp = jvInstrument 7
+  timpani = jvInstrument 8
+  bassdrum = jvInstrument 9
+  -- percussion
+  tamtam = jvInstrument 11
+  violin1 = jvInstrument'
+  violin2 = jvInstrument'
+  viola = jvInstrument'
+  cello = jvInstrument'
+  contrabass = jvInstrument'
+  strings = jvInstrument'
+  pizz = ch 12
+  spic = ch 13
+  marc = ch 14
+  legg = ch 15
+  arco = ch 16
+
+  -- FLUTE note C4-D7 MIDI 48-86
+once $ flute "pp ff" +| note "[-12 26]*2" #legato 0.8
+
+  -- OBOE note Bb3-A6 MIDI 58-93
+once $ oboe "pp ff" +| note "[-2 33]*2" #legato 0.8
+
+
+
+  -- VIOLIN note G3-A7 MIDI 55-105
+once $ violin1 "pp ff" +| note "[-5 45]*2" #legato 0.8 #arco
+
+  -- VIOLA note C3-E6 MIDI 48-88
+once $ viola "pp ff" +| note "[-12 28]*2" #legato 0.8 #arco
+
+  -- CELLO note C2-C6 MIDI 36-84
+once $ cello "pp ff" +| note "[-24 24]*2" #legato 0.8 #arco
+
+  -- CONTRABASS note C1-C4 MIDI 24-60
+once $ contrabass "pp ff" +| note "[-36 0]*2" #legato 0.8 #arco
+
+  -- PIZZ note C1-A7 MIDI 24-105
+once $ strings "pp ff" +| note "[-36 45]*2" #legato 0.8 #pizz
+
+  -- SPIC note C2-A7 MIDI 36-105
+once $ strings "pp ff" +| note "[-24 45]*2" #legato 0.8 #spic
+
+  -- MARC note C1-C6 MIDI 24-84
+once $ strings "pp ff" +| note "[-36 24]*2" #legato 0.8 #marc
+
+  -- SLOW note C3-A7 MIDI 48-105
+once $ strings "pp ff" +| note "[-12 45]*2" #legato 0.8 #legg
+
+  -- ARCO note C1-A7 MIDI 24-105
+once $ strings "pp ff" +| note "[-36 45]*2" #legato 0.8 #arco
+
+-- 1: flute
+-- 2: oboe
+-- 3: clarinet
+-- 4: bassoon
+-- 5: horns
+-- 6: trombones
+-- 7: harp
+-- 8: timpani
+-- 9: bass drum
+-- 10: percussion bank
+-- 11: tam tam
+-- 12: strings pizzicato [db,vc,va,vn1,vn2]
+-- 13: high strings attack [va,vn1,vn2]
+-- 14: low strings attack [db,vc]
+-- 15: slow violins [va,vn1,vn2]
+-- 16: strings arco [db,vc,va,vn1,vn2]
+
+d1 $ note ("[-36 -24 -12 0 12 24]/6" +| "[<[2 4 5 9 12]*6 [2 5 7 11 12]*6 [4 5 8 11 12]*6>]/6") #pizz

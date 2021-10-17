@@ -1,0 +1,229 @@
+-- once $ flute "pp ff" +| note "[14 48]*2" #legato 0.8 -- piccolo
+-- once $ flute "pp ff" +| note "[0 33]*2" #legato 0.8
+-- once $ oboe "pp ff" +| note "[-2 31]*2" #legato 0.8
+-- once $ oboe "pp ff" +| note "[-8 24]*2" #legato 0.8 -- cor anglais
+-- once $ clarinet "pp ff" +| note "[-10 31]*2" #legato 0.8
+-- once $ clarinet "pp ff" +| note "[-22 14]*2" #legato 0.8 -- bass clarinet
+-- once $ bassoon "pp ff" +| note "[-26 15]*2" #legato 0.8
+-- once $ horn "pp ff" +| note "[-27 17]*2" #legato 0.8
+-- once $ trumpet "pp ff" +| note "[-8 24]*2" #legato 0.8
+-- once $ trombone "pp ff" +| note "[-8 24]*2" #legato 0.8
+-- once $ trombone "pp ff" +| note "[-26 8]*2" #legato 0.8 -- bass trombone
+-- once $ tuba "pp ff" +| note "[-34 7]*2" #legato 0.8 -- tuba + timpani
+-- once $ tuba "pp ff" +| note "[-6 7]*2" #legato 0.8 -- solo tuba
+-- once $ timpani "pp ff" +| note "[-34 -15]*2" -- tuba + timpani
+-- once $ timpani "pp ff" +| note "[-10 -9 -8]*2" -- snares
+-- once $ violin1 "pp ff" +| note "[-5 43]*2" #legato 0.8
+-- once $ violin2 "pp ff" +| note "[-5 43]*2" #legato 0.8
+-- once $ viola "pp ff" +| note "[-12 33]*2" #legato 0.8
+-- once $ cello "pp ff" +| note "[-24 19]*2" #legato 0.8
+-- once $ contrabass "pp ff" +| note "[-36 -2]*2" #legato 0.8
+
+-- 2 flutes, doubling piccolo
+-- 2 oboe, doubling cor anglais
+-- 2 clarinets, doubling bass clarinet
+-- 2 bassoons, doubling contrabassoon
+-- 2 horns
+-- 1 trumpet
+-- 2 trombones, doubling bass trombone
+-- 1 tuba
+-- timpani
+-- percussion
+-- synthesizer
+-- harp
+-- 1st violins
+-- 2nd violins
+-- violas
+-- celli
+-- contrabasses
+
+-- FULL ORCHESTRA
+
+-- 1: flute [87-90]
+-- 2: oboe [92-99]
+-- 3: clarinet [102-105]
+-- 4: bassoon [100-101]
+-- 5: horn [123-136]
+-- 6: trumpet [106-107,154-156]
+-- 7: trombone [113-116,152-154]
+-- 8: tuba [121-122]
+-- 9: timpani [236-239]
+-- 10: rhythm/percussion (**performance control channel**)
+-- 11: pitched/extra percussion [200-226,229-235,240-242]
+-- 12: synthesizer
+-- 13: harp/keyboard [186-202]
+-- 14: strings pizzicato [74]
+-- 15: strings articulation
+-- 16: strings arco
+
+once $ jvProgram user 1 #ch 10
+
+setcps 0.5
+
+d1 $ note ("[-24 -12 0 12 24]/5" +| "[<[2 4 5 9 12]*5 [2 5 7 11 12]*5 [4 5 8 11 12]*5>]/5") #ch 1 |* vel (lfo (slow 5 saw) 0.6 0.2)
+
+dynamicMarks chan = [
+    ("x", note "0"),
+    ("ffff", note "0" #vel 1 #ch chan),
+    ("fff", note "0" #vel 0.9 #ch chan),
+    ("ff", note "0" #vel 0.75 #ch chan),
+    ("f", note "0" #vel 0.65 #ch chan),
+    ("mf", note "0" #vel 0.55 #ch chan),
+    ("mp", note "0" #vel 0.45 #ch chan),
+    ("p", note "0" #vel 0.40 #ch chan),
+    ("pp", note "0" #vel 0.35 #ch chan),
+    ("ppp", note "0"  #vel 0.30 #ch chan),
+    ("pppp", note "0" #vel 0.25 #ch chan)
+  ]
+
+midiInstrument chan mixlvl dyn = do
+  let bars = 1
+      fs   = []
+   in ur bars dyn (dynamicMarks chan) fs
+
+let
+  piccolo = midiInstrument 1 1
+  flute = midiInstrument 1 1
+  oboe = midiInstrument 2 1
+  coranglais = midiInstrument 2 1
+  -- clarinet
+  -- bassclarinet
+  -- bassoon
+  -- contrabassoon
+  -- horn
+  -- trumpet
+  -- trombone
+  -- tuba
+  -- timpani
+  -- percussion
+  -- tamtam
+  -- modular
+  -- harp
+  -- [strings_pizzicato]
+  -- [strings_slow]
+  -- [strings_arco]
+
+
+  -- PICCOLO note D4-C7 sound oct higher MIDI 62-96
+once $ piccolo "pp ff" +| note "[2 36]*2" #legato 0.8
+
+  -- FLUTE note C4-D7 MIDI 48-86
+once $ flute "pp ff" +| note "[-12 26]*2" #legato 0.8
+
+  -- OBOE note Bb3-A6 MIDI 58-93
+once $ oboe "pp ff" +| note "[-2 33]*2" #legato 0.8
+
+  -- COR ANGLAIS note B3-G6 sound 5th lower MIDI 52-84
+once $ coranglais "pp ff" +| note "[-8 24]*2" #legato 0.8
+
+-- CLARINET
+
+-- BASS CLARINET
+
+-- BASSOON
+
+-- CONTRABASSOON
+
+do
+  let
+  mapM_ id $ putStrLn "jv Orchestra: Instrumentation" :
+    setcps 0.1
+    : (once <$> (zipWith (~>) (pure . (/100) <$> [0..99]) [silence
+    ,jvProgram user 1 #ch 10 -- user performance 1
+    -- ,jvProgram user 1 #ch 1 -- flute
+    -- ,jvProgram user 2 #ch 2 -- oboe
+    -- ,jvProgram user 3 #ch 3 -- clarinet
+    -- ,jvProgram user 4 #ch 4 -- bassoon
+    -- ,jvProgram user 5 #ch 5 -- horn
+    -- ,jvProgram user 6 #ch 6 -- trumpet
+    -- ,jvProgram user 7 #ch 7 -- trombone
+    -- ,jvProgram user 8 #ch 8 -- tuba
+    -- ,jvProgram user 9 #ch 9 -- timpani
+    -- ,jvProgram user 10 #ch 10 -- drum machine
+    -- ,jvProgram user 11 #ch 11 -- percussion
+    -- ,jvProgram user 12 #ch 12 -- synthesizer
+    -- ,jvProgram user 13 #ch 13 -- harp
+    -- ,jvProgram user 14 #ch 14 -- strings pizz
+    -- ,jvProgram user 15 #ch 15 -- strings articulation
+    -- ,jvProgram user 16 #ch 16 -- strings arco
+    ]))
+
+-- STRINGS FOCUS
+
+-- 1: flute
+-- 2: oboe
+-- 3: clarinet
+-- 4: bassoon
+-- 5: horn
+-- 6: brass ensemble
+-- 7: soloist arco
+-- 8: soloist articulation
+-- 9: contrabass attack
+-- 10: rhythm/percussion (**performance control channel**)
+-- 11: pitched/extra percussion [200-226,229-235,240-242]
+-- 12: synthesizer
+-- 13: harp/keyboard [186-202]
+-- 14: strings pizzicato [74]
+-- 15: strings articulation
+-- 16: strings arco
+
+-- WIND FOCUS
+
+-- 1: piccolo
+-- 2: flute
+-- 3: oboe
+-- 4: cor anglais
+-- 5: clarinet
+-- 6: bass clarinet
+-- 7: bassoon
+-- 8: horn
+-- 9: brass ensemble
+-- 10: rhythm/percussion (**performance control channel**)
+-- 11: timpani
+-- 12: synthesizer
+-- 13: harp/keyboard
+-- 14: strings pizz
+-- 15: strings slow/marcato
+-- 16: strings arco
+
+-- BRASS FOCUS
+
+-- 1: flute
+-- 2: oboe+clarinet
+-- 3: bassoon
+-- 4: horn
+-- 5: trumpet
+-- 6: trombone
+-- 7: bass trombone
+-- 8: tuba
+-- 9: timpani
+-- 10: rhythm/percussion (**performance control channel**)
+-- 11: pitched/extra percussion
+-- 12: synthesizer
+-- 13: brass ensemble/swell
+-- 14: strings pizzicato
+-- 15: strings articulation
+-- 16: strings arco
+
+-- STRINGS
+
+-- 1: flute
+-- 2: oboe
+-- 3: clarinet
+-- 4: bassoon
+-- 5: horns
+-- 6: trombones
+-- 7: soloist arco
+-- 8: soloist marcato
+-- 9: contrabass attack
+-- 10: rhythm (**performance control channel**)
+-- 11: tam tam [200-226,229-235,240-242]
+-- 12: harp/keyboard [186-202]
+-- 13: strings pizzicato [74]
+-- 14: violins slow
+-- 15: violins marcato
+-- 16: strings arco
+
+d1 $ note ("[-24 -12 0 12 24]/5" +| "[<[2 4 5 9 12]*5 [2 5 7 11 12]*5 [4 5 8 11 12]*5>]/5") #ch 13 |* vel (lfo (slow 5 saw) 0.6 0.2)
+
+hush

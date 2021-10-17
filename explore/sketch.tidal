@@ -1,0 +1,60 @@
+k = C \\\ mMaj
+
+d1 $ slow 8 $ note (k "[0 2 4 7]*4" |+ "[7 5 3]/4" |- 24) #ch 1
+
+d2 $ cc 1 (slow 4 $ lfo saw 0 1) #ch 1
+
+d2 $ cc 0 81 #ch 1
+
+d2 $ cc 32 1 #ch 1
+
+prog p = midicmd "program" #progNum p
+
+cc'' n val = control val #io n where io n = (midicmd "control" #ctlNum n)
+
+user = stack[cc'' 0 80, 0.01 ~> cc'' 32 0]
+presetA = stack[cc'' 0 81, 0.01 ~> cc'' 32 0]
+presetB = stack[cc'' 0 81, 0.01 ~> cc'' 32 1]
+presetC = stack[cc'' 0 81, 0.01 ~> cc'' 32 2]
+presetD = stack[cc'' 0 81, 0.01 ~> cc'' 32 3]
+presetE = stack[cc'' 0 81, 0.01 ~> cc'' 32 4]
+sessionA = stack[cc'' 0 84, 0.01 ~> cc'' 32 0]
+sessionB = stack[cc'' 0 84, 0.01 ~> cc'' 32 1]
+orchestralA = stack[cc'' 0 84, 0.01 ~> cc'' 32 2]
+orchestralB = stack[cc'' 0 84, 0.01 ~> cc'' 32 3]
+
+jvProgram b p = stack[silence
+  ,b
+  ,0.02 ~> prog (p-1)
+  ]
+
+once $ jvPatch orchestralB (236-128) #ch 9
+
+setcps (112/120/2)
+
+d1 $ swingBy 0.04 8 $ stack[silence
+  ,midinote "[80*16]" #vel 0.3
+  ,midinote ("[0(3,8). ~ 0 0 ~]" |+ "81") #vel 0.5
+  ,0.009 <~ midinote "[36*4]" #vel 0.8
+  ,0.001 ~> midinote "[~ 39]*2" #vel 0.8
+  -- ,midinote "[42 42 ~ 42]*4" #vel (lfo (fast 4 tri) 0.6 0.8) |+ humanise 0.2
+  ,midinote "[~ 44]*4" #vel 0.8
+  ,midinote "[~ 54]*4" #vel 0.8
+  -- ,midinote "[~ 54]*4" #vel 0.8
+  ] #ch 9
+
+d1 $ note "0*4" #ch "[1 2 3 4]"
+
+once $ jvProgram orchestralA 36 #ch 1
+once $ jvProgram orchestralA 48 #ch 2
+
+hush
+
+  -- filter patterns on location
+
+  -- modulate technique
+
+  -- typeclass for instrument sections?
+
+  -- filter patterns on register?
+hush
