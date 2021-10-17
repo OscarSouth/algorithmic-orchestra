@@ -81,7 +81,20 @@ once $ flute "pp ff" +| note "[-12 26]*2" #legato 0.8
   -- OBOE note Bb3-A6 MIDI 58-93
 once $ oboe "pp ff" +| note "[-2 33]*2" #legato 0.8
 
+  -- CLARINET note D2-Bb6
+once $ clarinet "pp ff" +| note "[]*2" #legato 0.8
 
+  -- BASSOON note Bb1-Eb5
+once $ bassoon "pp ff" +| note "[]*2" #legato 0.8
+
+  -- HORN note B1-F5
+once $ horn "pp ff" +| note "[]*2" #legato 0.8
+
+  -- TROMBONE note E2(Bb1)-F5
+once $ trombone "pp ff" +| note "[]*2" #legato 0.8
+
+  -- HARP note B1-F#7
+once $ harp "pp ff" +| note "[]*2" #legato 0.8
 
   -- VIOLIN note G3-A7 MIDI 55-105
 once $ violin1 "pp ff" +| note "[-5 45]*2" #legato 0.8 #arco
