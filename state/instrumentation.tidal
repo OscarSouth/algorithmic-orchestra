@@ -70,7 +70,7 @@ let
   contrabass = jvInstrument'
   strings = jvInstrument'
   pizz = ch 12
-  spic = ch 13
+  spicc = ch 13
   marc = ch 14
   legg = ch 15
   arco = ch 16
@@ -112,7 +112,7 @@ once $ contrabass "pp ff" +| note "[-36 0]*2" #legato 0.8 #arco
 once $ strings "pp ff" +| note "[-36 45]*2" #legato 0.8 #pizz
 
   -- SPIC note C2-A7 MIDI 36-105
-once $ strings "pp ff" +| note "[-24 45]*2" #legato 0.8 #spic
+once $ strings "pp ff" +| note "[-24 45]*2" #legato 0.8 #spicc
 
   -- MARC note C1-C6 MIDI 24-84
 once $ strings "pp ff" +| note "[-36 24]*2" #legato 0.8 #marc
