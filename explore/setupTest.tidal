@@ -1,0 +1,24 @@
+k = mode 1 $ C \\\ mMaj
+
+d1 $ note (k "[0 7 [4 2] <5 0>]" - "[-12 0 12 24]/4") #ch "16" #legato 0.1
+
+once $ cc 91 0 #ch 1
+
+
+-- PAN
+-- 1: flute -10
+-- 2: oboe 10
+-- 3: clarinet -15
+-- 4: bassoon 15
+-- 5: horns -22
+-- 6: trombones 18
+-- 7: harp -25
+-- 8: timpani -18
+-- 9: bass drum -6
+-- 10: percussion bank
+-- 11: tam tam 22
+-- 12: strings pizzicato [db,vc,va,vn1,vn2] (0)
+-- 13: high strings attack [va,vn1,vn2] (0)
+-- 14: low strings attack [db,vc] (0)
+-- 15: slow violins [va,vn1,vn2] (0)
+-- 16: strings arco [db,vc,va,vn1,vn2] (0)
